@@ -1,7 +1,7 @@
-console.log("module.js")
+console.log("module.js");
 
-async function start(){
-    await Promise.resolve()
+async function start() {
+  return await Promise.resolve("async woking2");
 }
 
-start()
+start().then(console.log);
