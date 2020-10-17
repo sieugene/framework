@@ -24,9 +24,6 @@ module.exports = {
   },
   resolve: {
     extensions: [".js"],
-    //import '.../.../.../.../'
-    //import './'
-    //alias для удобного импорта
     alias: {
       "@": path.resolve(__dirname, "src"),
       "@core": path.resolve(__dirname, "src/core"),
@@ -34,7 +31,7 @@ module.exports = {
   },
   devtool: isDev ? "source-map" : false,
   devServer: {
-    contentBase: "./dist",
+    contentBase: path.resolve(__dirname, "dist"),
     hot: true,
     port: 3000,
     inline: true,
