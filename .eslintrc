@@ -16,7 +16,8 @@
         "spaced-comment": "off",
         "padded-blocks": "off",
         "no-trailing-spaces": "off",
-        "arrow-parens": "off"
+        "arrow-parens": "off",
+        "operator-linebreak": "off"
     },
     "extends": ["eslint:recommended", "google"]
 }
