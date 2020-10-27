@@ -1,6 +1,12 @@
 import { ExcelComponent } from "./../../core/ExcelComponent";
 export class Tollbar extends ExcelComponent {
   static className = "excel__toolbar";
+  constructor($root) {
+    super($root, {
+      name: "toolbar",
+      listeners: ["click"],
+    });
+  }
   toHTML() {
     return `<div class="button">
     <span class="material-icons"> format_align_left </span>
@@ -20,5 +26,8 @@ export class Tollbar extends ExcelComponent {
   <div class="button">
     <span class="material-icons"> format_underlined </span>
   </div>`;
+  }
+  onClick(event) {
+    console.log(event.target);
   }
 }

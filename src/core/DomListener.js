@@ -17,10 +17,18 @@ export class DomListener {
           `Method ${method} is not implemented in ${name} component`
         );
       }
-      this.$root.on(listener, this[method].bind(this));
+      //привязываем контекст, чтобы в дальнейшем удалить слушателей верно
+      //так как bind создает новую функцию
+      this[method] = this[method].bind(this);
+      this.$root.on(listener, this[method]);
     });
   }
-  removeDOMListeners() {}
+  removeDOMListeners() {
+    this.listeners.forEach((listener) => {
+      const method = getMethodName(listener);
+      this.$root.off(listener, this[method]);
+    });
+  }
 }
 
 function getMethodName(eventName) {
