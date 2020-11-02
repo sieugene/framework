@@ -12,10 +12,10 @@ export class Formula extends ExcelComponent {
     <div class="input" contenteditable spellcheck="false"></div>`;
   }
   onInput(event) {
-    console.log(this);
-    console.log("onInput Formula", event);
+    // console.log(this);
+    // console.log("onInput Formula", event);
   }
   onClick(event) {
-    console.log("onInput Formula", event);
+    // console.log("onInput Formula", event);
   }
 }

@@ -28,6 +28,6 @@ export class Tollbar extends ExcelComponent {
   </div>`;
   }
   onClick(event) {
-    console.log(event.target);
+    // console.log(event.target);
   }
 }

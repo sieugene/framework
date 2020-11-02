@@ -30,7 +30,7 @@ export const createTable = (rowsCount = 15) => {
   const rows = [];
   rows.push(createRow(cols));
   for (let i = 0; i < rowsCount; i++) {
-    rows.push(createRow(cells, i));
+    rows.push(createRow(cells, i + 1));
   }
   return rows.join("");
 };
