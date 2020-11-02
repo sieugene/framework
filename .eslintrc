@@ -10,7 +10,15 @@
         "semi":"off",
         "linebreak-style":"off",
         "object-curly-spacing":"off",
-        "require-jsdoc":"off"
+        "require-jsdoc":"off",
+        "no-debugger": "off",
+        "comma-spacing": "off",
+        "spaced-comment": "off",
+        "padded-blocks": "off",
+        "no-trailing-spaces": "off",
+        "arrow-parens": "off",
+        "operator-linebreak": "off",
+        "indent":"off"
     },
     "extends": ["eslint:recommended", "google"]
 }
