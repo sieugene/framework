@@ -10,12 +10,12 @@ const toColumn = (col) => {
   return `
   <div class="column">
     ${col}
-    <div class="col-resize"></div>
+    <div class="col-resize" data-resize="col"></div>
   </div>`;
 };
 const createRow = (content, number) => {
   const iterate = number ? String(number) : "";
-  const resizer = iterate && `<div class="row-resize"></div>`
+  const resizer = iterate && `<div class="row-resize" data-resize="row"></div>`
   return `
     <div class="row">
     <div class="row-info">
