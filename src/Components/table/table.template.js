@@ -8,7 +8,7 @@ const createCell = () => {
 };
 const toColumn = (col) => {
   return `
-  <div class="column">
+  <div class="column" data-type="resizable">
     ${col}
     <div class="col-resize" data-resize="col"></div>
   </div>`;
