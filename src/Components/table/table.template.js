@@ -17,7 +17,7 @@ const createRow = (content, number) => {
   const iterate = number ? String(number) : "";
   const resizer = iterate && `<div class="row-resize" data-resize="row"></div>`;
   return `
-    <div class="row">
+    <div class="row" data-row=${number} data-type="resizable">
     <div class="row-info">
       ${iterate}
       ${resizer}
