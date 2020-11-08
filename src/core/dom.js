@@ -46,7 +46,7 @@ class Dom {
     return this.$el.getBoundingClientRect();
   }
   css(styles) {
-    return Object.keys(styles).map((key) => {
+    return Object.keys(styles).forEach((key) => {
       this.$el.style[key] = styles[key];
     });
   }
