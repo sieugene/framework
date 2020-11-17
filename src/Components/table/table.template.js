@@ -15,6 +15,7 @@ const toCell = (row) => {
             data-col="${col}" 
             data-row="${row}"
             data-id="${row}:${col}"
+            data-type="cell"
             >
             </div>`;
   };
