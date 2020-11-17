@@ -3,8 +3,21 @@ const CODES = {
   Z: 90,
 };
 
-const createCell = (_, col) => {
-  return `<div class="cell" contenteditable data-col=${col}></div>`;
+// const toCell = (row, col) => {
+//   return `<div class="cell" contenteditable data-col=${col} data-row=${row}
+//   ></div>`;
+// };
+
+const toCell = (row) => {
+  return function(_, col) {
+    return `<div class="cell" 
+            contenteditable 
+            data-col="${col}" 
+            data-row="${row}"
+            data-id="${row}:${col}"
+            >
+            </div>`;
+  };
 };
 const toColumn = (col, index) => {
   return `
@@ -34,11 +47,15 @@ const toChar = (_, char) => {
 export const createTable = (rowsCount = 15) => {
   const colsCount = CODES.Z - CODES.A + 1;
   const cols = new Array(colsCount).fill("").map(toChar).map(toColumn).join("");
-  const cells = new Array(colsCount).fill("").map(createCell).join("");
   const rows = [];
   rows.push(createRow(cols, null));
-  for (let i = 0; i < rowsCount; i++) {
-    rows.push(createRow(cells, i + 1));
+  for (let row = 0; row < rowsCount; row++) {
+    const cells = new Array(colsCount)
+      .fill("")
+      // .map((_, col) => toCell(row, col))
+      .map(toCell(row))
+      .join("");
+    rows.push(createRow(cells, row + 1));
   }
   return rows.join("");
 };
