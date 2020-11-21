@@ -6,9 +6,11 @@ import { TableSelection } from "./TableSelection";
 import { $ } from "../../core/dom";
 export class Table extends ExcelComponent {
   static className = "excel__table";
-  constructor($root) {
+  constructor($root, options) {
     super($root, {
+      name: "Table",
       listeners: ["mousedown", "keydown"],
+      ...options,
     });
   }
   toHTML() {
@@ -23,6 +25,10 @@ export class Table extends ExcelComponent {
     super.init();
     const $cell = this.$root.find('[data-id="0:0"]');
     this.selection.select($cell);
+    this.emitter.subscribe("it is working", (text) => {
+      this.selection.current.text(text)
+      console.log("table from formula", text);
+    });
   }
   onMousedown(event) {
     if (shouldResize(event)) {
