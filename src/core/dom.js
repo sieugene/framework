@@ -63,6 +63,11 @@ class Dom {
     }
     return this.data.id;
   }
+  focus() {
+    this.$el.focus();
+    // $el.focus().addClass можем вызвать так, как возвращаем this
+    return this;
+  }
   addClass(className) {
     this.$el.classList.add(className);
   }
