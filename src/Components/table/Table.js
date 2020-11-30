@@ -43,9 +43,19 @@ export class Table extends ExcelComponent {
     this.$emit("table:select", $cell);
     // this.$dispatch({ type: "TEST" });
   }
+
+  async resizeTable(event) {
+    try {
+      const data = await resizer(this.$root, event);
+      this.$dispatch({ type: "TABLE_RESIZE", data });
+    } catch (error) {
+      console.warn("RESIZE ERROR", error);
+    }
+  }
+
   onMousedown(event) {
     if (shouldResize(event)) {
-      resizer(this.$root, event);
+      this.resizeTable(event);
     } else if (isCell(event)) {
       const $target = $(event.target);
       if (event.shiftKey) {
