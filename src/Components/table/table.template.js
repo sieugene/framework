@@ -3,26 +3,29 @@ const CODES = {
   Z: 90,
 };
 
-// const toCell = (row, col) => {
-//   return `<div class="cell" contenteditable data-col=${col} data-row=${row}
-//   ></div>`;
-// };
+const DEFAULT_WIDTH = "120";
 
-const toCell = (row) => {
-  return function(_, col) {
+function getWidth(state, index) {
+  return (state[index] || DEFAULT_WIDTH) + "px";
+}
+
+const toCell = (row, state) => {
+  return function (_, col) {
     return `<div class="cell" 
             contenteditable 
             data-col="${col}" 
             data-row="${row}"
             data-id="${row}:${col}"
-            data-type="cell"
-            >
+            style="width:${getWidth(state, col)}"
+            data-type="cell">
             </div>`;
   };
 };
-const toColumn = (col, index) => {
+const toColumn = ({ col, index, width }) => {
   return `
-  <div class="column" data-type="resizable" data-col=${index}>
+  <div class="column" data-type="resizable" data-col=${index} 
+  style="width:${width}"
+  >
     ${col}
     <div class="col-resize" data-resize="col"></div>
   </div>`;
@@ -45,16 +48,33 @@ const createRow = (content, number) => {
 const toChar = (_, char) => {
   return String.fromCharCode(CODES.A + char);
 };
-export const createTable = (rowsCount = 15) => {
+
+
+function withWidthFrom(state) {
+  return function (col, index) {
+    return {
+      col,
+      index,
+      width: getWidth(state, index),
+    };
+  };
+}
+
+export const createTable = (rowsCount = 15, state = {}) => {
   const colsCount = CODES.Z - CODES.A + 1;
-  const cols = new Array(colsCount).fill("").map(toChar).map(toColumn).join("");
+  const cols = new Array(colsCount)
+    .fill("")
+    .map(toChar)
+    .map(withWidthFrom(state))
+    .map(toColumn)
+    .join("");
   const rows = [];
   rows.push(createRow(cols, null));
   for (let row = 0; row < rowsCount; row++) {
     const cells = new Array(colsCount)
       .fill("")
       // .map((_, col) => toCell(row, col))
-      .map(toCell(row))
+      .map(toCell(row, state))
       .join("");
     rows.push(createRow(cells, row + 1));
   }

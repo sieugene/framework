@@ -16,7 +16,8 @@ export class Table extends ExcelComponent {
     });
   }
   toHTML() {
-    return createTable(20);
+    const colState = this.store.getState().colState;
+    return createTable(20, colState);
   }
   prepare() {
     console.log("prepare");
