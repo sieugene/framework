@@ -4,9 +4,14 @@ const CODES = {
 };
 
 const DEFAULT_WIDTH = "120";
+const DEFAULT_HEIGHT = "24";
 
 function getWidth(state, index) {
   return (state[index] || DEFAULT_WIDTH) + "px";
+}
+
+function getHeight(state, index) {
+  return ((index && state[index]) || DEFAULT_HEIGHT) + "px";
 }
 
 const toCell = (row, state) => {
@@ -30,11 +35,13 @@ const toColumn = ({ col, index, width }) => {
     <div class="col-resize" data-resize="col"></div>
   </div>`;
 };
-const createRow = (content, number) => {
+const createRow = (content, number, state) => {
   const iterate = number ? String(number) : "";
   const resizer = iterate && `<div class="row-resize" data-resize="row"></div>`;
   return `
-    <div class="row" data-row=${number} data-type="resizable">
+    <div class="row" data-row=${number} data-type="resizable"
+    style="height:${getHeight(state, number)}"
+    >
     <div class="row-info">
       ${iterate}
       ${resizer}
@@ -48,7 +55,6 @@ const createRow = (content, number) => {
 const toChar = (_, char) => {
   return String.fromCharCode(CODES.A + char);
 };
-
 
 function withWidthFrom(state) {
   return function (col, index) {
@@ -65,7 +71,7 @@ export const createTable = (rowsCount = 15, state = {}) => {
   const cols = new Array(colsCount)
     .fill("")
     .map(toChar)
-    .map(withWidthFrom(state))
+    .map(withWidthFrom(state.colState))
     .map(toColumn)
     .join("");
   const rows = [];
@@ -74,9 +80,9 @@ export const createTable = (rowsCount = 15, state = {}) => {
     const cells = new Array(colsCount)
       .fill("")
       // .map((_, col) => toCell(row, col))
-      .map(toCell(row, state))
+      .map(toCell(row, state.colState))
       .join("");
-    rows.push(createRow(cells, row + 1));
+    rows.push(createRow(cells, row + 1, state.rowState));
   }
   return rows.join("");
 };

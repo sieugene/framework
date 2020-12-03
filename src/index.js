@@ -7,8 +7,9 @@ import { Table } from "./Components/table/Table";
 import { createStore } from "./core/createStore";
 import { rootReducer } from "./store/rootReducer";
 import { storage } from "./core/Utils";
+import { initialState } from "./store/initialState";
 
-const store = createStore(rootReducer, storage('excel-state'));
+const store = createStore(rootReducer, initialState);
 
 store.subscribe((state) => {
   console.log("App State", state);
