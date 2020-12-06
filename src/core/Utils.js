@@ -26,3 +26,7 @@ export const isEqual = (a, b) => {
   }
   return a === b;
 };
+
+export const camelInDashed = (camel) => {
+  return camel.replace(/[A-Z]/g, (m) => "-" + m.toLowerCase());
+};

@@ -1,3 +1,6 @@
+import { defaultStyles } from "../../constants";
+import { camelInDashed } from "./../../core/Utils";
+
 const CODES = {
   A: 65,
   Z: 90,
@@ -19,12 +22,15 @@ const toCell = (row, state) => {
     const id = `${row}:${col}`;
     const data = state.dataState[id] || "";
     const width = getWidth(state.colState, col);
+    const styles = Object.keys(defaultStyles)
+      .map((key) => `${key}: ${defaultStyles[key]}`)
+      .join(";");
     return `<div class="cell" 
             contenteditable 
             data-col="${col}" 
             data-row="${row}"
             data-id="${id}"
-            style="width:${width}"
+            style="${camelInDashed(styles)}; width:${width}"
             data-type="cell">${data}
             </div>`;
   };

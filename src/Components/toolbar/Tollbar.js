@@ -8,6 +8,7 @@ export class Tollbar extends Component {
     super($root, {
       name: "toolbar",
       listeners: ["click"],
+      subscribe: ["currentStyles"],
       ...options,
     });
   }
@@ -20,16 +21,19 @@ export class Tollbar extends Component {
   toHTML() {
     return this.template;
   }
+  storeChanged(changes) {
+    this.setState(changes.currentStyles);
+  }
   onClick(event) {
     const $target = $(event.target);
     // $target.addClass("active");
     if ($target.data.type === "button") {
       const value = JSON.parse($target.data.value);
-      const key = Object.keys(value)[0];
+      // const key = Object.keys(value)[0];
       this.$emit("tollbar:applyStyle", value);
-      this.setState({
-        [key]: value[key],
-      });
+      // this.setState({
+      //   [key]: value[key],
+      // });
     }
   }
 }
