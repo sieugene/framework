@@ -5,6 +5,7 @@ import { isCell, matrix, shouldResize, nextSelector } from "./table.functions";
 import { TableSelection } from "./TableSelection";
 import { $ } from "../../core/dom";
 import * as actions from "./../../store/actions";
+import { defaultStyles } from "./../../constants";
 
 export class Table extends ExcelComponent {
   static className = "excel__table";
@@ -38,10 +39,14 @@ export class Table extends ExcelComponent {
         this.selection.current.focus();
       }
     });
+    this.$on("tollbar:applyStyle", (style) => {
+      this.selection.applyStyle(style);
+    });
   }
   selectCell($cell) {
     this.selection.select($cell);
     this.$emit("table:select", $cell);
+    console.log($cell.getStyles(Object.keys(defaultStyles)));
     // this.$dispatch({ type: "TEST" });
   }
 

@@ -1,6 +1,7 @@
 import { createToolbar } from "./Toolbar.template";
 import { $ } from "./../../core/dom";
 import { Component } from "./../../core/Component";
+import { defaultStyles } from "./../../constants";
 export class Tollbar extends Component {
   static className = "excel__toolbar";
   constructor($root, options) {
@@ -11,13 +12,7 @@ export class Tollbar extends Component {
     });
   }
   prepare() {
-    const initialState = {
-      textAlign: "left",
-      fontWeight: "normal",
-      textDecoration: "none",
-      fontStyle: "normal",
-    };
-    this.initState(initialState);
+    this.initState(defaultStyles);
   }
   get template() {
     return createToolbar(this.state);
@@ -27,10 +22,11 @@ export class Tollbar extends Component {
   }
   onClick(event) {
     const $target = $(event.target);
-    $target.addClass("active");
+    // $target.addClass("active");
     if ($target.data.type === "button") {
       const value = JSON.parse($target.data.value);
       const key = Object.keys(value)[0];
+      this.$emit("tollbar:applyStyle", value);
       this.setState({
         [key]: value[key],
       });

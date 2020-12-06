@@ -17,21 +17,21 @@ export const createToolbar = (state) => {
       icon: "format_align_left",
       active: state["textAlign"] === "left",
       value: {
-        textAlign: state["textAlign"] === "left" ? "initial" : "left",
+        textAlign: "left",
       },
     },
     {
       icon: "format_align_center",
       active: state["textAlign"] === "center",
       value: {
-        textAlign: state["textAlign"] === "center" ? "initial" : "center",
+        textAlign: "center",
       },
     },
     {
       icon: "format_align_right",
       active: state["textAlign"] === "right",
       value: {
-        textAlign: state["textAlign"] === "right" ? "initial" : "right",
+        textAlign: "right",
       },
     },
     {
@@ -50,10 +50,10 @@ export const createToolbar = (state) => {
     },
     {
       icon: "format_underlined",
-      active: state["textDecoration"] === "underlined",
+      active: state["textDecoration"] === "underline",
       value: {
         textDecoration:
-          state["textDecoration"] === "underlined" ? "normal" : "underlined",
+          state["textDecoration"] === "underline" ? "none" : "underline",
       },
     },
   ];
