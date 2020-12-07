@@ -28,5 +28,11 @@ export const isEqual = (a, b) => {
 };
 
 export const camelInDashed = (camel) => {
-  return camel.replace(/[A-Z]/g, (m) => "-" + m.toLowerCase());
+  return camel && camel.replace(/[A-Z]/g, (m) => "-" + m.toLowerCase());
+};
+
+export const toInlineStyles = (styles = {}) => {
+  return Object.keys(styles)
+    .map((key) => `${key}: ${styles[key]}`)
+    .join(";");
 };

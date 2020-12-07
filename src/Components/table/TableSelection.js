@@ -10,6 +10,9 @@ export class TableSelection {
     $el.focus().addClass(TableSelection.className);
     this.current = $el;
   }
+  get selectedIds() {
+    return this.group.map(($el) => $el.id());
+  }
   clear() {
     this.group.forEach(($el) => $el.removeClass(TableSelection.className));
     this.group = [];
