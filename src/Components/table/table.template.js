@@ -1,3 +1,4 @@
+import { defaultStyles } from "../../constants";
 import { toInlineStyles } from "../../core/Utils";
 import { camelInDashed } from "./../../core/Utils";
 
@@ -22,14 +23,17 @@ const toCell = (row, state) => {
     const id = `${row}:${col}`;
     const data = state.dataState[id] || "";
     const width = getWidth(state.colState, col);
-    const styles = toInlineStyles(state.styleState[id]);
+    const styles =
+      toInlineStyles(state.styleState[id]) !== ""
+        ? toInlineStyles(state.styleState[id])
+        : toInlineStyles(defaultStyles);
 
     return `<div class="cell" 
             contenteditable 
             data-col="${col}" 
             data-row="${row}"
             data-id="${id}"
-            style="${camelInDashed(styles)}; width:${width}"
+            style="${styles && camelInDashed(styles)}; width:${width}"
             data-type="cell">${data}
             </div>`;
   };
