@@ -1,4 +1,10 @@
-import { CHANGE_TEXT, TABLE_RESIZE, CHANGE_STYLES, APPLY_STYLE } from "./types";
+import {
+  CHANGE_TEXT,
+  TABLE_RESIZE,
+  CHANGE_STYLES,
+  APPLY_STYLE,
+  CHANGE_TITLE,
+} from "./types";
 
 export const tableResize = (data) => {
   return {
@@ -25,5 +31,12 @@ export const applyStyle = (data) => {
   return {
     type: APPLY_STYLE,
     data,
+  };
+};
+
+export const changeTitle = (title) => {
+  return {
+    type: CHANGE_TITLE,
+    title,
   };
 };
