@@ -2,6 +2,7 @@ import { ExcelComponent } from "./../../core/ExcelComponent";
 import { $ } from "./../../core/dom";
 import { changeTitle } from "../../store/actions";
 import { defaultTitle } from "./../../constants";
+import { debounce } from "../../core/Utils";
 export class Header extends ExcelComponent {
   static className = "excel__header";
   constructor($root, options) {
@@ -11,7 +12,11 @@ export class Header extends ExcelComponent {
       ...options,
     });
   }
+  prepare() {
+    this.onInput = debounce(this.onInput, 300).bind(this);
+  }
   onInput(event) {
+    console.log("onpiniput");
     const $target = $(event.target);
     const value = $target.$el.value;
 
