@@ -1,6 +1,7 @@
 import { defaultStyles } from "../../constants";
 import { toInlineStyles } from "../../core/Utils";
 import { camelInDashed } from "./../../core/Utils";
+import { parse } from "./../../core/parse";
 
 const CODES = {
   A: 65,
@@ -32,8 +33,9 @@ const toCell = (row, state) => {
             data-col="${col}" 
             data-row="${row}"
             data-id="${id}"
+            data-value="${data || ""}"
             style="${styles && camelInDashed(styles)}; width:${width}"
-            data-type="cell">${data}
+            data-type="cell">${parse(data)}
             </div>`;
   };
 };
