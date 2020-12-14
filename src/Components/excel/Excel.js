@@ -3,8 +3,7 @@ import { StoreSubscriber } from "../../core/StoreSubscriber";
 import { Emitter } from "./../../core/Emitter";
 
 export class Excel {
-  constructor(selector, options) {
-    this.$el = $(selector);
+  constructor(options) {
     this.components = options.components || [];
     this.store = options.store;
     this.emitter = new Emitter();
@@ -21,17 +20,13 @@ export class Excel {
       const component = new Component($el, {
         ...componentOptions,
       });
-      // if (component.name) {
-      //   window["c" + component.name] = component;
-      // }
       $el.html(component.toHTML());
       $root.append($el);
       return component;
     });
     return $root;
   }
-  render() {
-    this.$el.append(this.getRoot());
+  init() {
     this.subscriber.subscribeComponents(this.components);
     this.components.forEach((component) => component.init());
   }

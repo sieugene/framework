@@ -17,11 +17,10 @@ export class Router {
     this.changePageHandler();
   }
   changePageHandler(event) {
-      debugger
-    this.$placeholder.html(
-      `<h1>test${ActiveRoute.path}</h1>`,
-      ActiveRoute.path
-    );
+    const Page = this.routes.excel;
+    const page = new Page();
+    this.$placeholder.append(page.getRoot());
+    page.afterRender();
   }
   destroy() {
     window.removeEventListener("hashchange", this.changePageHandler);
