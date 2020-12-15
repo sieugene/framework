@@ -11,6 +11,7 @@ import { Excel } from "./../Components/excel/Excel";
 
 export class ExcelPage extends Page {
   getRoot() {
+    console.log(this.params);
     const store = createStore(rootReducer, initialState);
     const stateListener = debounce((state) => {
       console.log("%c App State! ", "background: #222; color: #bada55", state);
