@@ -11,6 +11,7 @@ export const defaultState = {
     ...defaultStyles,
   },
   title: defaultTitle,
+  openedDate: new Date().toJSON(),
 };
 
 const normalize = (state) => ({

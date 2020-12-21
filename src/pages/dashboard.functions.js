@@ -4,7 +4,10 @@ const toHTML = (page) => {
   const model = storage(page);
   return `<li class="db__record">
     <a href="/#excel/${link(page)}">${model.title}</a>
-    <strong>12.12.2020</strong>
+    <strong>
+    ${new Date(model.openedDate).toLocaleDateString()}
+    ${new Date(model.openedDate).toLocaleTimeString()}
+  </strong>
   </li>`;
 };
 
