@@ -4,12 +4,16 @@ import {
   CHANGE_TEXT,
   CHANGE_TITLE,
   TABLE_RESIZE,
+  UPDATE_DATE,
 } from "./types";
 
 export function rootReducer(state, action) {
   let field;
   let val;
-  console.log(`ACTION____${action.type}:`, action);
+  if (process.env.NODE_ENV === "development") {
+    console.log(`ACTION____${action.type}:`, action);
+  }
+
   switch (action.type) {
     case TABLE_RESIZE:
       field = action.data.type === "col" ? "colState" : "rowState";
@@ -41,6 +45,11 @@ export function rootReducer(state, action) {
       return {
         ...state,
         title: action.title,
+      };
+    case UPDATE_DATE:
+      return {
+        ...state,
+        openedDate: new Date().toJSON(),
       };
     default:
       return state;

@@ -1,10 +1,11 @@
 import { $ } from "../../core/dom";
 import { StoreSubscriber } from "../../core/StoreSubscriber";
 import { Emitter } from "./../../core/Emitter";
+import { updateDate } from "../../store/actions";
+import { preventDefault } from "./../../core/Utils";
 
 export class Excel {
-  constructor(selector, options) {
-    this.$el = $(selector);
+  constructor(options) {
     this.components = options.components || [];
     this.store = options.store;
     this.emitter = new Emitter();
@@ -21,17 +22,18 @@ export class Excel {
       const component = new Component($el, {
         ...componentOptions,
       });
-      // if (component.name) {
-      //   window["c" + component.name] = component;
-      // }
       $el.html(component.toHTML());
       $root.append($el);
       return component;
     });
     return $root;
   }
-  render() {
-    this.$el.append(this.getRoot());
+  init() {
+    //запрет вызовы контекстного меню
+    if (process.env.NODE_ENV === "production") {
+      document.addEventListener("contextmenu", preventDefault);
+    }
+    this.store.dispatch(updateDate());
     this.subscriber.subscribeComponents(this.components);
     this.components.forEach((component) => component.init());
   }
@@ -39,5 +41,6 @@ export class Excel {
   destroy() {
     this.subscriber.unsubscribeFromStore();
     this.components.forEach((component) => component.destroy());
+    document.removeEventListener("contextmenu", preventDefault);
   }
 }
