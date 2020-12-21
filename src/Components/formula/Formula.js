@@ -28,7 +28,6 @@ export class Formula extends ExcelComponent {
   }
   storeChanged({ currentText }) {
     this.$formula.text(currentText);
-    console.log("changes", currentText);
   }
   onKeydown(event) {
     const keys = ["Enter", "Tab"];

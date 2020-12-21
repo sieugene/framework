@@ -22,18 +22,15 @@ export class Table extends ExcelComponent {
     return createTable(20, colState);
   }
   prepare() {
-    console.log("prepare");
     this.selection = new TableSelection();
   }
   init() {
-    console.log("init");
     super.init();
     this.selectCell(this.$root.find('[data-id="0:0"]'));
     this.$on("formula:input", (value) => {
       const text = parse(value);
       this.selection.current.attr("data-value", value).text(text);
       this.updateTextInStore(value);
-      console.log("table from formula", value);
     });
     this.$on("formula:done", () => {
       if (focus) {
@@ -54,7 +51,6 @@ export class Table extends ExcelComponent {
     this.selection.select($cell);
     this.$emit("table:select", $cell);
     const styles = $cell.getStyles(Object.keys(defaultStyles));
-    console.log("Styles to dispatch", styles);
     this.$dispatch(actions.changeStyles(styles));
 
     // this.$dispatch({ type: "TEST" });

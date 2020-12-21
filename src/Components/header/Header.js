@@ -17,14 +17,12 @@ export class Header extends ExcelComponent {
     this.onInput = debounce(this.onInput, 300).bind(this);
   }
   onInput(event) {
-    console.log("onpiniput");
     const $target = $(event.target);
     const value = $target.$el.value;
     this.$dispatch(changeTitle(value));
   }
   onClick(event) {
     const $target = $(event.target);
-    debugger;
     if ($target.data.button === "remove") {
       const decision = confirm("Вы действительно хотите удалить эту таблицу?");
       if (decision) {

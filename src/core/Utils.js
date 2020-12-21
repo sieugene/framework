@@ -55,3 +55,7 @@ export const debounce = (fn, wait) => {
 export const clone = (obj) => {
   return JSON.parse(JSON.stringify(obj));
 };
+
+export const preventDefault = (event) => {
+  event.preventDefault();
+};

@@ -10,7 +10,10 @@ import {
 export function rootReducer(state, action) {
   let field;
   let val;
-  console.log(`ACTION____${action.type}:`, action);
+  if (process.env.NODE_ENV === "development") {
+    console.log(`ACTION____${action.type}:`, action);
+  }
+
   switch (action.type) {
     case TABLE_RESIZE:
       field = action.data.type === "col" ? "colState" : "rowState";
