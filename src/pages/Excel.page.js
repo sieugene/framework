@@ -2,22 +2,30 @@ import { Page } from "./../core/Page";
 import { debounce, storage } from "./../core/Utils";
 import { createStore } from "./../core/createStore";
 import { rootReducer } from "./../store/rootReducer";
-import { initialState } from "./../store/initialState";
+import { normalizeInitialState } from "./../store/initialState";
 import { Header } from "./../Components/header/Header";
 import { Tollbar } from "./../Components/toolbar/Tollbar";
 import { Formula } from "./../Components/formula/Formula";
 import { Table } from "./../Components/table/Table";
 import { Excel } from "./../Components/excel/Excel";
 
+function storageName(param = "") {
+  return "excel" + param;
+}
+
 export class ExcelPage extends Page {
   getRoot() {
-    console.log(this.params);
-    const store = createStore(rootReducer, initialState);
+    const params = this.params ? this.params : Date.now().toString();
+    const state = storage(storageName(this.params));
+    const store = createStore(rootReducer, normalizeInitialState(state));
+
     const stateListener = debounce((state) => {
       console.log("%c App State! ", "background: #222; color: #bada55", state);
-      storage("excel-state", state);
+      storage(storageName(params), state);
     }, 300);
+
     store.subscribe(stateListener);
+
     this.excel = new Excel({
       components: [Header, Tollbar, Formula, Table],
       store,
