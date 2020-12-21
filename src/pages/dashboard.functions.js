@@ -1,8 +1,12 @@
-const toHTML = () => {
+const toHTML = (page) => {
   return `<li class="db__record">
-    <a href="#">Таблица номер 1</a>
+    <a href="/#excel/${link(page)}">Таблица номер 1</a>
     <strong>12.12.2020</strong>
   </li>`;
+};
+
+const link = (page) => {
+  return page.replace("excel", "");
 };
 
 const getAllKeys = () => {
