@@ -3,7 +3,7 @@ import { storage } from "./../core/Utils";
 const toHTML = (page) => {
   const model = storage(page);
   return `<li class="db__record">
-    <a href="/#excel/${link(page)}">${model.title}</a>
+    <a href="${link(page)}">${model.title}</a>
     <strong>
     ${new Date(model.openedDate).toLocaleDateString()}
     ${new Date(model.openedDate).toLocaleTimeString()}
@@ -12,7 +12,9 @@ const toHTML = (page) => {
 };
 
 const link = (page) => {
-  return page.replace("excel", "");
+  return process.env.NODE_ENV === "production"
+    ? "/framework/#excel/" + page.replace("excel", "")
+    : "/#excel/" + page.replace("excel", "");
 };
 
 const getAllKeys = () => {
